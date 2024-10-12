@@ -4,7 +4,13 @@
 <PageTitle>Dog</PageTitle>
 
 <p>Dog</p>
+<button @onclick="GetDog">GetDog</button>
+<p>@img</p>
 
 @code {
-
+    string img;
+    private void GetDog() {
+        var dis = new DogImageService();
+        img = dis.GetImage();
+    }
 }
