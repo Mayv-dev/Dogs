@@ -5,10 +5,10 @@
 
 <p>Dog</p>
 <button @onclick="GetDog">GetDog</button>
-<p>@img</p>
+<img src="@img" />
 
 @code {
-    string img;
+    string img = "";
     private void GetDog() {
         var dis = new DogImageService();
         img = dis.GetImage();
