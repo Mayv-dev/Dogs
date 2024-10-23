@@ -3,24 +3,83 @@
 
 <PageTitle>Dog</PageTitle>
 
-<p>Dog</p>
-<button @onclick="GetDog">GetDog</button>
-<button @onclick="GetDogFact">GetDogFact</button>
-<img src="@img" class="img-fluid" />
-<p>@fact</p>
+<div class="container text-center">
+    <h1>Dogs</h1>
+    <div class="row" onload="OnLoad">
+        <div class="col">
+        </div>
+        <div class="col-6">
+            <div class="img-container">
+                <img src="@img" class="img-max-size" />
+            </div>
+            <p>@fact</p>
+            <button @onclick="GetDog" class="btn btn-outline-primary">GetDog</button>
+            <button @onclick="GetDogFact" class="btn btn-outline-primary">GetDogFact</button>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+
+<style>
+    .img-max-size {
+        max-height: 100%;
+        max-width: 100%;
+        height: auto;
+        width: auto;
+    }
+
+    .img-container {
+        height: 60vh;
+        width: 100%;
+        border: solid 2px;
+    }
+
+    p {
+        padding: 1rem;
+        height: 10vh;
+    }
+</style>
+
 
 @code {
     string img = "";
+    string preload_img = "";
     string fact = "";
+    bool loaded = false;
     private void GetDog()
     {
-        var dis = new DogImageService();
-        img = dis.GetImage();
+        img = preload_img;
+        var dogImageService = new DogImageService();
+        preload_img = dogImageService.GetImage();
     }
 
     private void GetDogFact()
     {
         var factService = new DogFactService();
         fact = factService.GetFact();
+    }
+
+    private void Preload()
+    {
+        var dogImageService = new DogImageService();
+        preload_img = dogImageService.GetImage();
+    }
+
+    private void OnLoad()
+    {
+        Preload();
+        GetDog();
+        GetDogFact();
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            OnLoad();
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
     }
 }
