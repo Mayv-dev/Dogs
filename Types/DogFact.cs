@@ -1,7 +1,8 @@
 using System.Text.Json.Serialization;
 
 namespace Dogs.Types;
-public class DogFact{
+public class DogFact
+{
     [JsonPropertyName("body")]
-    public required string Body {get; set;}
+    public required string Body { get; set; }
 }

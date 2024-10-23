@@ -1,7 +1,8 @@
 using System.Text.Json.Serialization;
 
 namespace Dogs.Types;
-public class DogFactResponseWrapper {
+public class DogFactResponseWrapper
+{
     [JsonPropertyName("data")]
-    public List<DogFactResponse>? Data {get; set;}
+    public List<DogFactResponse>? Data { get; set; }
 }

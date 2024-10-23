@@ -6,18 +6,20 @@
 <p>Dog</p>
 <button @onclick="GetDog">GetDog</button>
 <button @onclick="GetDogFact">GetDogFact</button>
-<img src="@img" />
+<img src="@img" class="img-fluid" />
 <p>@fact</p>
 
 @code {
     string img = "";
     string fact = "";
-    private void GetDog() {
+    private void GetDog()
+    {
         var dis = new DogImageService();
         img = dis.GetImage();
     }
 
-    private void GetDogFact() {
+    private void GetDogFact()
+    {
         var factService = new DogFactService();
         fact = factService.GetFact();
     }
