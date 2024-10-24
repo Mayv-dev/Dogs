@@ -63,19 +63,19 @@
     private void GetDog()
     {
         img = preload_img;
-        var dogImageService = new DogImageService();
+        IDogImageService dogImageService = new RandomDogImageService();
         preload_img = dogImageService.GetImage();
     }
 
     private void GetDogFact()
     {
-        var factService = new DogFactService();
+        IDogFactService factService = new DogApiFactSercie();
         fact = factService.GetFact();
     }
 
     private void Preload()
     {
-        var dogImageService = new DogImageService();
+        IDogImageService dogImageService = new RandomDogImageService();
         preload_img = dogImageService.GetImage();
     }
 
