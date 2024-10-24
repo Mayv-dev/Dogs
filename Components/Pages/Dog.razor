@@ -10,7 +10,7 @@
         </div>
         <div class="col-6">
             <div class="img-container">
-                <img src="@img" class="img-max-size" />
+                <img src="@imgUrl" class="img-max-size" />
             </div>
             <p>@fact</p>
             <div class="row">
@@ -66,13 +66,13 @@
 
 
 @code {
-    string img = "";
+    string imgUrl = "";
     string preload_img = "";
     string fact = "";
     bool loaded = false;
     private void GetDog()
     {
-        img = preload_img;
+        imgUrl = preload_img;
         IDogImageService dogImageService = new RandomDogImageService();
         preload_img = dogImageService.GetImage();
     }
@@ -98,7 +98,7 @@
 
     private void WriteToFie()
     {
-        var content = new DogFileContent(img, fact);
+        var content = new DogFileContent(imgUrl, fact);
         IFileAdapter fileHandler = new DogFileHandler();
         fileHandler.WriteToFile(content);
     }
@@ -107,7 +107,7 @@
     {
         IFileAdapter fileHandler = new DogFileHandler();
         var content = fileHandler.ReadFromFile();
-        img = content.ImageUrl;
+        imgUrl = content.ImageUrl;
         fact = content.Fact;
     }
 
