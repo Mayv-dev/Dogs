@@ -2,8 +2,8 @@ using System.Text.Json;
 using Dogs.Types;
 using RestSharp;
 
-namespace Dogs.Services;
-public class DogImageService
+namespace Dogs.Services.Implementations;
+public class RandomDogImageService : IDogImageService
 {
     static readonly string DOG_IMAGE_URL = "https://random.dog/woof.json?filter=mp4,webm";
 

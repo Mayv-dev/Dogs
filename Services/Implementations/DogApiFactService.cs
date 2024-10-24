@@ -2,8 +2,8 @@ using RestSharp;
 using System.Text.Json;
 using Dogs.Types;
 
-namespace Dogs.Services;
-public class DogFactService
+namespace Dogs.Services.Implementations;
+public class DogApiFactSercie : IDogFactService
 {
     static readonly string DOG_FACT_URL = "https://dogapi.dog/api/v2/facts";
     public string GetFact()
