@@ -1,9 +1,10 @@
 using System.Text.Json.Serialization;
 
 namespace Dogs.Types;
-class DogImageResponse {
+class DogImageResponse
+{
     [JsonPropertyName("fileSizeBytes")]
-    public int FileSize {get; set;}
+    public int FileSize { get; set; }
     [JsonPropertyName("url")]
-    public required string ImageUrl {get; set;}
+    public required string ImageUrl { get; set; }
 }

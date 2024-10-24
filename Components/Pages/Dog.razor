@@ -3,22 +3,96 @@
 
 <PageTitle>Dog</PageTitle>
 
-<p>Dog</p>
-<button @onclick="GetDog">GetDog</button>
-<button @onclick="GetDogFact">GetDogFact</button>
-<img src="@img" />
-<p>@fact</p>
+<div class="container text-center">
+    <h1>Dogs On Demand!</h1>
+    <div class="row" onload="OnLoad">
+        <div class="col">
+        </div>
+        <div class="col-6">
+            <div class="img-container">
+                <img src="@img" class="img-max-size" />
+            </div>
+            <p>@fact</p>
+            <button @onclick="GetDog" class="btn btn-dark btn-lg">GetDog</button>
+            <button @onclick="GetDogFact" class="btn btn-dark btn-lg">GetDogFact</button>
+        </div>
+        <div class=" col">
+        </div>
+    </div>
+</div>
+
+<style>
+    .img-max-size {
+        max-height: 100%;
+        max-width: 100%;
+        height: auto;
+        width: auto;
+    }
+
+    .img-container {
+        height: 55vh;
+        width: 100%;
+    }
+
+    img {
+        border: solid 2px;
+    }
+
+    h1 {
+        font-family: 'GoodDog Cool';
+        font-size: 10vh;
+    }
+
+    p {
+        padding: 1rem;
+        height: 15vh;
+        font-size: x-large;
+    }
+
+    button {
+        margin: 1rem;
+    }
+</style>
+
 
 @code {
     string img = "";
+    string preload_img = "";
     string fact = "";
-    private void GetDog() {
-        var dis = new DogImageService();
-        img = dis.GetImage();
+    bool loaded = false;
+    private void GetDog()
+    {
+        img = preload_img;
+        var dogImageService = new DogImageService();
+        preload_img = dogImageService.GetImage();
     }
 
-    private void GetDogFact() {
+    private void GetDogFact()
+    {
         var factService = new DogFactService();
         fact = factService.GetFact();
+    }
+
+    private void Preload()
+    {
+        var dogImageService = new DogImageService();
+        preload_img = dogImageService.GetImage();
+    }
+
+    private void OnLoad()
+    {
+        Preload();
+        GetDog();
+        GetDogFact();
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            OnLoad();
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
     }
 }
