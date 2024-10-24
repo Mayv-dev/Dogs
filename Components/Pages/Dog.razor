@@ -13,8 +13,18 @@
                 <img src="@img" class="img-max-size" />
             </div>
             <p>@fact</p>
-            <button @onclick="GetDog" class="btn btn-dark btn-lg">GetDog</button>
-            <button @onclick="GetDogFact" class="btn btn-dark btn-lg">GetDogFact</button>
+            <div class="row">
+                <div class="col">
+                    <button @onclick="GetDog" class="btn btn-dark btn-lg">GetDog</button>
+                    <button @onclick="GetDogFact" class="btn btn-dark btn-lg">GetDogFact</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button @onclick="WriteToFie" class="btn btn-outline-dark btn-lg">Save</button>
+                    <button @onclick="ReadFromFile" class="btn btn-outline-dark btn-lg">Load</button>
+                </div>
+            </div>
         </div>
         <div class=" col">
         </div>
@@ -50,7 +60,7 @@
     }
 
     button {
-        margin: 1rem;
+        margin: 0.5rem;
     }
 </style>
 
@@ -84,6 +94,21 @@
         Preload();
         GetDog();
         GetDogFact();
+    }
+
+    private void WriteToFie()
+    {
+        var content = new DogFileContent(img, fact);
+        IFileAdapter fileHandler = new DogFileHandler();
+        fileHandler.WriteToFile(content);
+    }
+
+    private void ReadFromFile()
+    {
+        IFileAdapter fileHandler = new DogFileHandler();
+        var content = fileHandler.ReadFromFile();
+        img = content.ImageUrl;
+        fact = content.Fact;
     }
 
     protected override Task OnAfterRenderAsync(bool firstRender)
